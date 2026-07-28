@@ -1,0 +1,21 @@
+# Fichiers temporaires Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+
+# Dossiers de compilation PyInstaller
+build/
+dist/
+*.spec
+
+# Base de données de test et sauvegardes locales
+data/
+backups/
+exports/
+*.db
+
+# Fichiers d'éditeurs
+.vscode/
+.idea/
