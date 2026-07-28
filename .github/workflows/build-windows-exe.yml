@@ -15,10 +15,10 @@ jobs:
     - name: Récupérer le code source
       uses: actions/checkout@v4
 
-    - name: Configurer Python 3.11
+    - name: Configurer Python 3.8 (Compatibilité Windows 7/8/10/11)
       uses: actions/setup-python@v5
       with:
-        python-version: '3.11'
+        python-version: '3.8.10'
 
     - name: Installer et mettre à jour les outils de compilation
       run: |
