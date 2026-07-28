@@ -443,6 +443,7 @@ class ApplicationLaitiere(tk.Tk):
         cur.execute("SELECT * FROM eleveurs WHERE lower(nom) LIKE ? OR lower(prenom) LIKE ? OR lower(code_eleveur) LIKE ?", 
                     (f"%{query}%", f"%{query}%", f"%{query}%"))
         for row in cur.fetchall():
-            self.tree_eleveurs.insert("", tk.END, values=(
-                row["id"], row["code_eleveur"], row["nom"], row["prenom"],
-                r
+            vals = (row["id"], row["code_eleveur"], row["nom"], row["prenom"], row["commune"], row["wilaya"], row["telephone"], row["agrement_expiration"], row["certificat_expiration"])
+            self.tree_eleveurs.insert("", tk.END, values=vals)
+        conn.close()
+
