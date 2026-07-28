@@ -1,0 +1,40 @@
+name: Build Windows Executable
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Récupérer le code source
+      uses: actions/checkout@v4
+
+    - name: Configurer Python 3.11
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Installer les dépendances
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Compiler avec PyInstaller
+      run: |
+        pyinstaller --noconfirm --onedir --windowed --name "GestionCentreLait" main.py
+
+    - name: Archiver le build en fichier ZIP
+      shell: pwsh
+      run: |
+        Compress-Archive -Path dist/GestionCentreLait/* -DestinationPath dist/GestionCentreLait-Windows.zip
+
+    - name: Telecharger l'artéfact EXE
+      uses: actions/upload-artifact@v4
+      with:
+        name: GestionCentreLait-Windows-Exe
+        path: dist/GestionCentreLait-Windows.zip
