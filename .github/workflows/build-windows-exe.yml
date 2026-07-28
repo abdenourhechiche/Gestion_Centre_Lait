@@ -1,3 +1,4 @@
+
 name: Build Windows Executable
 
 on:
@@ -19,12 +20,16 @@ jobs:
       with:
         python-version: '3.11'
 
-    - name: Installer les dépendances
+    - name: Installer et mettre à jour les outils de compilation
       run: |
-        python -m pip install --upgrade pip
+        python -m pip install --upgrade pip setuptools wheel
         pip install -r requirements.txt
 
-    - name: Compiler avec PyInstaller
+    - name: Compiler avec PyInstaller (UTF-8 forcé)
+      shell: cmd
+      env:
+        PYTHONUTF8: "1"
+        PYTHONIOENCODING: "utf-8"
       run: |
         pyinstaller --noconfirm --onedir --windowed --name "GestionCentreLait" main.py
 
